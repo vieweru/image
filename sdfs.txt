@@ -1,0 +1,55 @@
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+
+class Temp{
+
+    public static void main(String []arg) throws IOException {
+
+        BufferedReader br = new BufferedReader(new FileReader("E:\\abc\\file.txt"));
+        try {
+            String line = br.readLine();
+
+            List<String> list = new ArrayList<String>();
+
+            while (line != null) {
+                String[] split = line.split("\t");
+
+                if("COMPLETE".equals(split[6]))
+                {
+                    if("BUY".equals(split[2]))
+                    {
+                        list.add(split[1] + "\t" + split[3] + "\t" + split[4]);
+                    }
+                    else
+                    {
+                        list.add(split[1] + "\t" + split[3] + "\t" + split[4] + "se");
+                        //list.add("\t" + "\t" + "\t" + split[1] + "\t" + split[3] + "\t" + split[4]);
+                    }
+                }
+
+                line = br.readLine();
+            }
+
+            List<String> subList = list.subList(1, list.size());
+            Collections.sort(subList);
+
+            for (String formatted : subList) {
+                if(!formatted.endsWith("se"))
+                {
+                    System.out.println(formatted);
+                }
+                else
+                {
+                    System.out.println("\t" + "\t" + "\t" +formatted.substring(0, formatted.length() - 2));
+                }
+            }
+
+        } finally {
+            br.close();
+        }
+
+    }
+}
